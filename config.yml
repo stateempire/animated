@@ -1,0 +1,13 @@
+name: SetJS post-css starter kit
+version: 1.0.0
+aws_vars: export $(cat .aws-vars | xargs)
+loader: progress-bar
+app_settings: >
+  timestamp: @replace{timestamp}
+local:
+  environment: local
+  site_port: 60004
+development:
+  environment: development
+master:
+  environment: production

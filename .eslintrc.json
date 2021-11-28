@@ -1,0 +1,29 @@
+{
+   "env": {
+      "browser": true,
+      "es6": true
+   },
+   "parserOptions": {
+     "ecmaVersion": 2018,
+     "sourceType": "module"
+   },
+   "extends": "eslint:recommended",
+   "globals": {
+      "DocumentTouch": true,
+     "$": true,
+     "APP_SETTINGS": true
+   },
+   "rules": {
+      "no-console": "off",
+      "indent": "off",
+      "quotes": [
+         "warn",
+         "single",
+         {"allowTemplateLiterals": true}
+      ],
+      "semi": [
+         "warn",
+         "always"
+      ]
+   }
+}

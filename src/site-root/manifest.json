@@ -1,0 +1,21 @@
+{
+  "short_name": "SE",
+  "name": "State Empire",
+  "description":"",
+  "icons": [
+    {
+      "src": "/images/common/pwa-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/images/common/pwa-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/?source=pwa",
+  "background_color": "#212121",
+  "display": "standalone",
+  "theme_color": "#212121"
+}

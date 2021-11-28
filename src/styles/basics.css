@@ -1,0 +1,9 @@
+html {
+  font-size: 16px;
+}
+
+body {
+  color: $primary-color;
+  background-color: $primary-bg;
+  font-family: 'Red Hat Display', sans-serif;
+}

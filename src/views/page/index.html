@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <title>SetJS post-css starter</title>
+  <link rel="stylesheet" href="/styles/main.css?v=@replace{timestamp}">
+</head>
+
+<body>
+  <div class="initial">
+    <div>Loading...</div>
+  </div>
+  <div id="nav-placeholder"></div>
+  <div id="main-content"></div>
+  <div id="footer-placeholder"></div>
+  <script type="text/template" id="init-error">
+    <main data-template="init-error" data-id="error">
+      <h1>Error</h1>
+      <h2>Unable to initialize. Please try again later.</h2>
+      <h3>{o:msg}</h3>
+    </main>
+  </script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script>
+    window.jQuery || document.write("<script src=\"/vendor/js/jquery-3.4.1.min.js\"><\/script>")
+  </script>
+  <script src="/scripts/bundle.js?v=@replace{timestamp}"></script>
+</body>
+</html>
