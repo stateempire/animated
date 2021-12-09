@@ -1,0 +1,30 @@
+.configurator-launch {
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  padding: 8px 4px;
+  background: rgba(0, 0, 0, 0.2);
+
+  > * {
+    float: left;
+    margin-right: 12px;
+
+    &:first-child {
+      margin-right: 4px;
+    }
+  }
+
+  #current-time {
+    position: fixed;
+    top: 16px;
+    right: 50px;
+    padding: 8px 12px;
+    background: rgba(0, 0, 0, 0.75);
+    font-family: monospace;
+  }
+
+  #data-time {
+    margin-top: 6px;
+  }
+}

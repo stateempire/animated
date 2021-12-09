@@ -1,0 +1,14 @@
+#intro {
+  text-align: center;
+
+  h1 {
+    font-size: 5rem;
+  }
+
+  .scroll {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    bottom: 120px;
+  }
+}

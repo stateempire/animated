@@ -1,0 +1,46 @@
+.waterfall {
+  .item > * {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+  }
+
+  input {
+    font-size: 14px;
+    width: 60px;
+  }
+
+  .outer {
+    width: 190px;
+    position: relative;
+    height: 10px;
+    background: #333;
+  }
+
+  .inner {
+    position: absolute;
+    height: 100%;
+    background: #99ff99;
+  }
+
+  .target-btn {
+    max-width: 125px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .play-btn {
+    width: 20px;
+  }
+
+  .row {
+    margin-top: 12px;
+    display: flex;
+    justify-content: flex-end;
+
+    > * {
+      margin-left: 10px;
+    }
+  }
+}

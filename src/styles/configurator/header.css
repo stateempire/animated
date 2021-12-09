@@ -1,0 +1,26 @@
+.side-panel .header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: inherit;
+  z-index: 5;
+  padding: 6px 10px 0;
+  background: #333;
+
+  >* {
+    display: inline-block;
+  }
+
+  .menu-dropdown-btn {
+    margin-top: -5px;
+  }
+
+  .back-btn {
+    display: none;
+    width: 24px;
+
+    &.show {
+      display: inline-block;
+    }
+  }
+}

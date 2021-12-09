@@ -1,0 +1,9 @@
+@import 'configurator/vars.css';
+@import 'configurator/components.css';
+@import 'configurator/core.css';
+@import 'configurator/header.css';
+@import 'configurator/history.css';
+@import 'configurator/launch.css';
+@import 'configurator/range.css';
+@import 'configurator/timeline.css';
+@import 'configurator/waterfall.css';

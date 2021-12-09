@@ -1,0 +1,15 @@
+<div class="menu-dropdown" data-template="config-menu">
+  <a class="menu-dropdown-btn icon-btn" data-slot='{"t": "icons-ellipsis"}'></a>
+  <div class="menu">
+    <a data-name='downloadBtn' class='hidden'></a>
+    <a data-act='click' data-func='saveHistory'>Save</a>
+    <a data-act='click' data-func='showHistory'>History</a>
+    <a data-act='click' data-func='showTimeline'>Timeline</a>
+    <a data-act='click' data-func='showWaterfall'>Waterfall</a>
+    <a data-act='click' data-func='download'>Export</a>
+    <label class='file-btn'>
+      Import
+      <input type="file" data-act="change" data-func='import'/>
+    </label>
+  </div>
+</div>

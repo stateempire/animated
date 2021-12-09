@@ -7,3 +7,19 @@ body {
   background-color: $primary-bg;
   font-family: 'Red Hat Display', sans-serif;
 }
+
+* {
+  box-sizing: border-box;
+}
+
+#main-content {
+  position: relative;
+  min-height: 100vh;
+}
+
+.initial {
+  z-index: 1;
+  font-size: 3rem;
+  color: orange;
+  background: $primary-bg;
+}

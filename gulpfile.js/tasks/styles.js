@@ -25,6 +25,6 @@ function buildCss(path) {
 }
 
 exports.styles = gulp.parallel(
-  // buildCss('common'),
+  buildCss('configurator'),
   buildCss('main'),
 );

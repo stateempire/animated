@@ -1,0 +1,60 @@
+body.panel-open {
+  #main-content {
+    width: calc(100% - $panel-width);
+    left: $panel-width;
+  }
+}
+
+.side-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 99999;
+  width: $panel-width;
+  border-right: 1px solid white;
+  background: black;
+
+  a {
+    cursor: pointer;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  .container {
+    position: relative;
+    top: 50px;
+    padding: 10px 6px 10px 10px;
+    height: calc(100% - 50px);
+    overflow: auto;
+  }
+
+  .editor-btn {
+    background: #444;
+    color: white;
+    display: inline-block;
+    border-radius: 5px;
+    padding: 2px 6px;
+    cursor: pointer;
+    border: none;
+    box-shadow: none;
+
+    &:hover {
+      background: #666;
+    }
+
+    &.disabled {
+      pointer-events: none;
+      background: #333;
+      border: 1px solid #222;
+      color: #bbb;
+    }
+  }
+
+  .bold {
+    font-weight: bold;
+  }
+}

@@ -1,0 +1,27 @@
+.history-panel {
+  font-family: monospace;
+  font-size: 16px;
+
+  .row {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 18px;
+
+    > * {
+      display: inline-block;
+    }
+  }
+
+  .index {
+    min-width: 30px;
+  }
+
+  .date {
+    min-width: 200px;
+  }
+
+  .count {
+    min-width: 100px;
+    text-align: center;
+  }
+}

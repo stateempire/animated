@@ -1,0 +1,48 @@
+.close-btn {
+  float: right;
+  padding: 4px;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.medium-btn {
+  padding: 4px 12px;
+  min-width: 80px;
+}
+
+.icon-btn {
+  width: 35px;
+  cursor: pointer;
+  fill: white;
+  opacity: 0.8;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.play-btn {
+  border-radius: 4px;
+
+  .stop {
+    display: none;
+  }
+
+  &.active {
+    .stop {
+      display: block;
+    }
+
+    .play  {
+      display: none;
+    }
+  }
+}
+
+.file-btn {
+  input {
+    position: fixed;
+    left: -100px;
+    top: -100px;
+  }
+}

@@ -1,0 +1,20 @@
+<div class="waterfall side-panel" data-template='waterfall'>
+  <div data-slot='{"t": "panel-header", "replace": 1}'></div>
+  <div class='container'>
+    <div data-name="anims" data-list='{"func": "getAnims", "vars": {"v": "anim"}}'>
+      <div class="item">
+        <input type="number" min='0' max='100' step='0.2' data-bind='anim.start:val' data-act='change' data-func='changeStart'>
+        <div class="outer">
+          <div class="inner" data-bind='anim|rangeCss'></div>
+        </div>
+        <div data-slot='{"t": "play-btn", "replace": 1, "prop": "anim"}'></div>
+        <input type="number" min='0' max='100' step='0.2' data-bind='anim.end:val' data-act='change' data-func='changeEnd'>
+        <a class="target-btn" data-act='click' data-func='applyFilter' title='{anim.target.id}'>{anim.target.id}</a>
+      </div>
+    </div>
+    <div class="row">
+      <button class='editor-btn' data-act='click' data-func='expand'>Expand</button>
+      <button class='editor-btn' data-act='click' data-func='finish'>Finish</button>
+    </div>
+  </div>
+</div>

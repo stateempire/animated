@@ -1,0 +1,33 @@
+.menu-dropdown {
+  .menu-dropdown-btn {
+    cursor: pointer;
+    display: inline-block;
+  }
+
+  .menu {
+    display: none;
+    position: absolute;
+    padding: 10px 20px;
+    left: 0;
+    font-size: 20px;
+    min-width: 120px;
+    user-select: none;
+    background: #333;
+    z-index: 100;
+  }
+
+  &.open {
+    .menu {
+      display: block;
+    }
+  }
+
+  .menu > * {
+    display: block;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

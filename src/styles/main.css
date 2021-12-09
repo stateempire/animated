@@ -4,7 +4,12 @@
 @import 'settings';
 @import 'basics';
 
+@import 'utility/animations';
+@import 'utility/layout';
+
+@import 'components/dropdown-menu';
 @import 'components/nav';
-@import 'pages/home';
+
+@import 'sections/intro';
 
 @import 'html5bp/last';

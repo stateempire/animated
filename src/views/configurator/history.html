@@ -1,0 +1,21 @@
+<div class='side-panel history-panel' data-template='history-panel'>
+  <div data-slot='{"t": "panel-header", "replace": 1}'></div>
+  <div class='container'>
+    <div class="history" data-name='history'>
+      <h3>Timeline History</h3>
+      <div class="row bold">
+        <div class="index">&nbsp;</div>
+        <div class="date">Time</div>
+        <div class="count">Objects</div>
+      </div>
+      <div data-name='historylist' data-list='{"prop": "history", "vars": {"v": "item"}}'>
+        <div class="row">
+          <div class="index">{index}.</div>
+          <div class="date" data-bind='item.time'></div>
+          <div class="count"><span data-bind='item.timedata.targets.length|text'></span> / <span data-bind='item.timedata.targets:targetCount|text'></span></div>
+          <a class='editor-btn' data-act='click' data-func='applyHistory'>Apply</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

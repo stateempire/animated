@@ -1,0 +1,9 @@
+.range-control {
+  position: relative;
+  width: 100%;
+
+  [type="number"] {
+    float: left;
+    width: 20%;
+  }
+}

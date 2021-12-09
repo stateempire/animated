@@ -1,35 +1,59 @@
-import {startApp} from 'setjs/kernel/setjs.js';
-import setup from 'config/setup.js';
-import langHelper from 'LangHelper';
-import initAppData from 'core/app-data.js';
-import storage from 'setjs/kernel/storage.js';
-import pageLoader from 'setjs/kernel/page-loader.js';
-import {batchCall} from 'setjs/utility/calls.js';
-import appInit from 'app/init.js';
-import initialiseSetjs from 'core/setjs-init.js';
-import {loadTemplates} from 'setjs/template/templates.js';
-import appAssets from 'bootstrap/app-assets.js';
-
-import 'bootstrap/plugin-init.js';
-import 'bootstrap/component-init.js';
+import anime from 'animejs';
+import {debounce} from 'setjs/utility/calls.js';
+import loader from 'app/loader.js';
+import configInit from 'configurator/init.js';
+import timeliner from 'helpers/timeliner.js';
 
 $(function() {
-  setup.init(APP_SETTINGS);
-  storage.init();
-  langHelper.init();
-  loadTemplates($('#init-error').html());
-  initialiseSetjs();
-  batchCall({
-    error: pageLoader.initError,
-    success: function() {
-      appInit({
-        error: pageLoader.initError,
-        success: startApp,
-      });
-    }
-  })
-  .add(appAssets)
-  .add(initAppData)
-  .add(langHelper.initData)
-  .go();
+  zIndex();
+  loader.init({timestamp: Date.now(), pages: 1.1, obj: [], dom: []});
+  configInit(loader, function() {
+    setTimeout(init, 2500);
+  });
 });
+
+function init() {
+  let $win = $(window);
+  let $doc = $(document);
+  $('.initial .pulse').removeClass('pulse');
+  anime({
+    scale: 40,
+    opacity: 0,
+    duration: 900,
+    targets: '.initial',
+    easing: 'linear',
+    complete: function() {
+      $('.initial').remove();
+    }
+  });
+  setupTimeline();
+  $doc.on('resize.tl timeline.tl', debounce(setupTimeline));
+
+  function setupTimeline() {
+    let {timeline, height} = timeliner($('#main-content'), loader.getTimeData());
+    $doc.off('scroll.tl').on('scroll.tl', seek);
+    $win.off('scrollPage').on('scrollPage', scrollPage);
+    seek();
+
+    function triggers() {
+      $win.trigger('progress', 100 * $doc.scrollTop() / height);
+    }
+
+    function scrollPage(e, perc) {
+      $doc.scrollTop(perc / 100 * height);
+    }
+
+    function seek() {
+      timeline.seek($doc.scrollTop());
+      triggers();
+    }
+  }
+}
+
+function zIndex() {
+  let styles = [];
+  for (var i = 1; i < 99; i++) {
+    styles.push(`.z-${i}{z-index:${i};}`);
+  }
+  $('head').append('<style>' + styles.join('\n') + '</style>');
+}
