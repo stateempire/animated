@@ -10,6 +10,7 @@
 @import 'components/dropdown-menu';
 @import 'components/nav';
 
+@import 'sections/carousel';
 @import 'sections/intro';
 
 @import 'html5bp/last';

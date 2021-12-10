@@ -11,8 +11,8 @@ import 'setjs/plugins/misc/dropdown-menu.js';
 
 import 'configurator/funcs.js';
 import 'configurator/waterfall.js';
-import 'configurator/menu.js';
 
+import initMenu from 'configurator/menu.js';
 import initHistory from 'configurator/history.js';
 import player from 'configurator/player.js';
 import easings from 'configurator/easings.js';
@@ -33,6 +33,7 @@ export default function(_loader, cb) {
     success: function() {
       player();
       launch();
+      initMenu();
       cb();
     },
   })

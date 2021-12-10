@@ -6,7 +6,10 @@ import showHistory from 'configurator/history-panel.js';
 import showWaterfall from 'configurator/waterfall.js';
 import {getLoader} from 'configurator/init.js';
 
-$(window).on('timeline', displayTime).on('progress', currentTime);
+export default function() {
+  $(window).on('timeline', displayTime).on('progress', currentTime);
+  displayTime();
+}
 
 function displayTime() {
   $('#data-time').text(new Date(getLoader().getTimeData().timestamp).toLocaleString());

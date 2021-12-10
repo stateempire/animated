@@ -12,6 +12,12 @@
   left: 0;
 }
 
+.full-video {
+  min-width: 100%;
+  min-height: 100%;
+  position: absolute;
+}
+
 .absolute {
   position: absolute;
 }

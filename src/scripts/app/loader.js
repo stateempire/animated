@@ -1,7 +1,6 @@
-var timedata;
+import timedata from 'data/timeline-1.json';
 
 export default {
-  init,
   getTimeData,
   setTimeData,
   historyPrefix: 'anim1-',
@@ -14,9 +13,4 @@ export function setTimeData(td) {
 
 export function getTimeData() {
   return timedata;
-}
-
-function init(timejson) {
-  timedata = timejson;
-  timedata.pages = Math.max(1, Math.min(timedata.pages, 100)) || 1;
 }

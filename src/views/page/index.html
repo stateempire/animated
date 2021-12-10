@@ -12,12 +12,10 @@
   <div class="initial center-flex full-screen fixed">
     <div class="pulse">Loading...</div>
   </div>
-  <div id="main-content">
-    <div id='intro' class="full-screen fixed">
-      <h1>Welcome!</h1>
-      <p>A scroll based timeline demo built using SetJS SPA toolchain</p>
-      <div class="scroll pulse">Start scrolling</div>
-    </div>
+  <div id="main-content" class="invisible">
+    @@include('components/intro.html')
+    @@include('components/video.html')
+    @@include('components/carousel.html')
   </div>
   <script type="text/template" id="init-error">
     <main data-template="init-error" data-id="error">

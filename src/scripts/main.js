@@ -6,7 +6,6 @@ import timeliner from 'helpers/timeliner.js';
 
 $(function() {
   zIndex();
-  loader.init({timestamp: Date.now(), pages: 1.1, obj: [], dom: []});
   configInit(loader, function() {
     setTimeout(init, 2500);
   });
@@ -15,6 +14,7 @@ $(function() {
 function init() {
   let $win = $(window);
   let $doc = $(document);
+  let $content = $('#main-content');
   $('.initial .pulse').removeClass('pulse');
   anime({
     scale: 40,
@@ -24,18 +24,36 @@ function init() {
     easing: 'linear',
     complete: function() {
       $('.initial').remove();
+      $content.removeClass('invisible').css('opacity', 0).animate({opacity: 1});
     }
   });
   setupTimeline();
   $doc.on('resize.tl timeline.tl', debounce(setupTimeline));
 
   function setupTimeline() {
-    let {timeline, height} = timeliner($('#main-content'), loader.getTimeData());
+    let {timeline, height} = timeliner($content, loader.getTimeData());
     $doc.off('scroll.tl').on('scroll.tl', seek);
     $win.off('scrollPage').on('scrollPage', scrollPage);
     seek();
 
     function triggers() {
+      let $text = $('#carousel-1 .carousel-text');
+      let $slides = $('#carousel-1 .carousel-slides');
+      let bounds = $('#carousel-1')[0].getBoundingClientRect();
+      let carouselWidth = $slides[0].getBoundingClientRect().width;
+      let height = $win.height();
+      let textTop = $text[0].getBoundingClientRect().top;
+      let fixed = bounds.top <= 0;
+      $slides.css('left', $win.width() - (Math.min(1, (bounds.top - height  * 0.01) / (height * 1.2 - bounds.height))) * carouselWidth);
+      if (fixed && !$text.hasClass('fixed')) {
+        $text.css({position: 'fixed', top: textTop});
+        if (textTop < 1) {
+          $text.animate({top: 0});
+        }
+      } else if (!fixed && $text.hasClass('fixed')) {
+        $text.css({position: '', top: ''});
+      }
+      $text.toggleClass('fixed', fixed);
       $win.trigger('progress', 100 * $doc.scrollTop() / height);
     }
 
