@@ -7,27 +7,27 @@ export default function($container, timedata) {
   let winWidth = getWinWidth();
   let winHeight = getWinHeight();
   let objTargets = {};
-  let time = timedata.pages * winHeight;
+  let time = (timedata.pages * winHeight) - winHeight;
   let timeline = anime.timeline({
     duration: time,
     autoplay: false,
     easing: 'linear',
   });
-  $container.css('height', time + winHeight);
+  $container.css('height', time);
 
   timedata.obj.forEach(function(target) {
-    createTargets(target.fields, 0, objTargets[target.id] = {});
+    createTargets(target.fields, 0, objTargets[target.el] = {});
   });
 
   timedata.dom.forEach(function(target) {
-    let $el = $('#' + target.id);
+    let $el = $(target.el);
     cssProps.forEach(function(prop) {
       $el.css(prop, '');
     });
     createTargets(target.fields, $el);
   });
 
-  return {timeline, height: time};
+  return {timeline, pageHeight: time};
 
   function createTargets(fields, $el, animObj) {
     fields.filter(field => ((field.browser || -1) & getBrowserFlag(winWidth))).forEach(function(field) {
@@ -40,7 +40,7 @@ export default function($container, timedata) {
         }
       });
       if (field.time) {
-        item.targets = animObj || $el[0];
+        item.targets = animObj || $el.toArray();
         item.duration = (field.time[1] - field.time[0]) / 100 * time;
         timeline.add(item, (field.time[0]) / 100 * time);
         if (animObj) {

@@ -1,5 +1,5 @@
 body.panel-open {
-  #main-content {
+  #main-content, .fixed {
     width: calc(100% - $panel-width);
     left: $panel-width;
   }

@@ -15,6 +15,7 @@
   cursor: pointer;
   fill: white;
   opacity: 0.8;
+  display: inline-block;
 
   &:hover {
     opacity: 1;

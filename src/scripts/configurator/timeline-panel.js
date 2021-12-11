@@ -12,25 +12,15 @@ export default function editor() {
     timedata,
     hasUnits,
     getUnits,
+    showCSS: function(target, opts) {
+      return opts.data.c.prop == 'timedata.dom' && !target.fields.filter(x => !x.time).length;
+    },
     getProps: function(list) {
       var props = getProps();
       list.forEach(function(item) {
         removeFromListByValue(props, item.key, 'value');
       });
       return props;
-    },
-    pagesRange: function(v, {$el}) {
-      var pages = timedata.pages;
-      createRange({
-        $el,
-        list: [pages],
-        min: 1,
-        max: 100,
-        decimals: 0,
-        update: function(val) {
-          changeValue('pages', val);
-        }
-      });
     },
     setupRange: function(item, {$el}, time, prop) {
       let config = $el.data('arg') || getRangeConfig(item.key);
@@ -49,22 +39,39 @@ export default function editor() {
     },
   };
   var editorComp = getComp('timeline-panel', compData, {
+    tabClick: function({$el}) {
+      $el.addClass('active');
+      $el.siblings().removeClass('active');
+      editorComp.$root.find('.tabs .tab').addClass('hide').eq($el.index()).removeClass('hide');
+    },
     addProp: function({$el, data, comp}) {
       data.pd.field.list.push(createItem(data.prop.value));
       $el.hide();
       comp.pComp.renderList('list');
     },
-    addFields: function({data, arg, comp}) {
+    addItem: function({$el, comp, arg, end}) {
+      end();
+      timedata[arg].push({el: $el.find('input').val(), fields: []});
+      comp.renderList('targets');
+      $el.find('input').val('');
+    },
+    removeItem: function({comp, data, arg}) {
+      timedata[arg].splice(data.dex, 1);
+      comp.pComp.renderList('targets');
+    },
+    addField: function({data, arg, comp}) {
       if (arg == 'css') {
-        timedata.targets[data.dex].fields.unshift({list: []});
+        data.target.fields.unshift({list: []});
       } else {
-        timedata.targets[data.dex].fields.push({time: [0, 10], list: []});
+        data.target.fields.push({time: [0, 10], list: []});
       }
       comp.renderList('fields');
+      comp.update();
     },
     removeField: function({data, comp}) {
-      timedata.targets[data.pd.dex].fields.splice(data.dex, 1);
+      data.pd.target.fields.splice(data.dex, 1);
       comp.pComp.renderList('fields');
+      comp.pComp.update();
       $win.trigger('timeline');
     },
     removeProp: function({comp, data}) {
@@ -95,6 +102,17 @@ export default function editor() {
     easingChange: function(opts) {
       opts.data.item.val = opts.$el.val();
     },
+  });
+
+  createRange({
+    $el: editorComp.$speedRange,
+    list: [101 - timedata.pages],
+    min: 1,
+    max: 100,
+    decimals: 0,
+    update: function(val) {
+      changeValue('pages', 101 - val);
+    }
   });
 
   $('body').append(editorComp.$root).addClass('panel-open');

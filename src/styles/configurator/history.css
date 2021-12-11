@@ -1,6 +1,8 @@
 .history-panel {
-  font-family: monospace;
-  font-size: 16px;
+  .container {
+    font-family: monospace;
+    font-size: 16px;
+  }
 
   .row {
     display: flex;

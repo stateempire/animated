@@ -3,69 +3,93 @@
   <div class='container'>
     <div class='timeline' data-name='timeline'>
       <div class="timeline-row">
-        <div>Pages</div>
-        <div data-bind='#:pagesRange'></div>
+        <div>Speed</div>
+        <div data-name='speedRange'></div>
         <div>
           <div data-slot='{"t": "play-btn", "replace": 1}'></div>
         </div>
       </div>
-      <div data-name='targets' data-list='{"prop": "timedata.targets", "vars": {"v": "target"}}'>
-        <div class="each">
-          <h3 class='title' data-act='click' data-func='toggleView'>{target.id}</h3>
-          <div class='clearfix' data-name='fields' data-list='{"prop": "target.fields", "vars": {"v": "field"}}'>
-            <div class='field'>
-              <div class="row" data-bind='field.time|not:toggleClass,styles'>
-                <span data-if='field.time'>{index}. Animation</span>
-                <span data-else=''>{index}. Styles</span>
-                <div class="buttons">
-                  <div data-if='field.time' data-slot='{"t": "play-btn", "replace": 1}'></div>
-                  <div class="icon-btn" data-act='click' data-func='removeField' data-slot='{"t": "icons-trash"}'></div>
-                  <div class="icon-btn small bit-flag" data-bind='field.browser|number,0|testFlag,1|toggleClass,on' data-act='click' data-func='toggleBrowser' data-arg='1' data-slot='{"t": "icons-phone"}'></div>
-                  <div class="icon-btn small bit-flag" data-bind='field.browser|number,0|testFlag,2|toggleClass,on' data-act='click' data-func='toggleBrowser' data-arg='6' data-slot='{"t": "icons-desktop"}'></div>
-                  <div class="menu-dropdown">
-                    <a class="menu-dropdown-btn icon-btn" data-slot='{"t": "icons-add"}'></a>
-                    <div class="menu" data-name='props' data-list='{"prop": "field.list", "func": "getProps", "vars": {"v": "prop"}}'>
-                      <div data-act='click' data-func='addProp'>{prop.txt}</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row" data-if='field.time'>
-                <div class="timeline-row clearfix">
-                  <div>time</div>
-                  <div data-bind='field:setupRange,~field.time,time' data-arg='{"min": 0, "max": 100, "restrict": 1}'></div>
-                </div>
-              </div>
-              <div data-name='list' data-list='{"prop": "field.list", "vars": {"v": "item"}}'>
-                <div class="timeline-row clearfix">
-                  <div>{item.key}</div>
-                  <div data-if='item.key|equal,easing'>
-                    <select data-list='{"prop": "@easings", "vars": {"v": "easing"}}' data-bind='item.val|str,linear:val' data-act="change" data-func='easingChange'>
-                      <option value="{easing}">{easing}</option>
-                    </select>
-                  </div>
-                  <div data-else=''>
-                    <div data-bind='item:setupRange,~pd.field.time'></div>
-                  </div>
-                  <div>
-                    <div data-if='item.key|hasUnits' >
-                      <select data-list='{"prop": "item.key", "func": "getUnits", "vars": {"v": "unit"}}' data-bind='item.unit|str,%:val' data-arg='targets[{pd.pd.dex}]fields[{pd.dex}]list[{dex}]unit' data-act="change" data-func='valChange'>
-                        <option value="{unit}">{unit}</option>
-                      </select>
-                    </div>
-                    <div class="icon-btn" data-act='click' data-func='removeProp' data-slot='{"t": "icons-close"}'></div>
-                  </div>
+      <div>
+        <div class="tab-btn active" data-act='click' data-func="tabClick"><span>DOM</span></div>
+        <div class="tab-btn" data-act='click' data-func="tabClick"><span>OBJ</span></div>
+      </div>
+      <div class="tabs">
+        <div class="tab dom">
+          <div data-slot='{"t": "timeline-panel/targets", "replace": 1, "vars": {"target_prop": "dom"}}'></div>
+        </div>
+        <div class="tab obj hide">
+          <div data-slot='{"t": "timeline-panel/targets", "replace": 1, "vars": {"target_prop": "obj"}}'></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div data-template='timeline-panel/targets'>
+  <div data-name='targets' data-list='{"prop": "timedata.{target_prop}", "vars": {"v": "target", "target_prop": "{target_prop}"}}'>
+    <div class="each">
+      <div class='title' data-act='click' data-func='toggleView'>
+        <div>{target.el}</div>
+        <div class="icon-btn" data-act='click' data-func='removeItem' data-arg='{target_prop}' data-slot='{"t": "icons-close"}'></div>
+      </div>
+      <div class='clearfix' data-name='fields' data-list='{"prop": "target.fields", "vars": {"v": "field"}}'>
+        <div class='field'>
+          <div class="row" data-bind='field.time|not:toggleClass,styles'>
+            <span data-if='field.time'>{index}. Animation</span>
+            <span data-else=''>{index}. Styles</span>
+            <div class="buttons">
+              <div data-if='field.time' data-slot='{"t": "play-btn", "replace": 1}'></div>
+              <div class="icon-btn" data-act='click' data-func='removeField' data-slot='{"t": "icons-trash"}'></div>
+              <div class="icon-btn small bit-flag" data-bind='field.browser|number,0|testFlag,1|toggleClass,on' data-act='click' data-func='toggleBrowser' data-arg='1' data-slot='{"t": "icons-phone"}'></div>
+              <div class="icon-btn small bit-flag" data-bind='field.browser|number,0|testFlag,2|toggleClass,on' data-act='click' data-func='toggleBrowser' data-arg='6' data-slot='{"t": "icons-desktop"}'></div>
+              <div class="menu-dropdown">
+                <a class="menu-dropdown-btn icon-btn" data-slot='{"t": "icons-add"}'></a>
+                <div class="menu" data-name='props' data-list='{"prop": "field.list", "func": "getProps", "vars": {"v": "prop"}}'>
+                  <div data-act='click' data-func='addProp'>{prop.txt}</div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="row">
-            <button class='editor-btn' data-act='click' data-func='addFields' data-arg='anim'>+ Add Anim</button>
-            <button data-name='cssBtn' class='editor-btn' data-act='click' data-func='addFields' data-arg='css'>+ Add CSS</button>
+          <div class="row" data-if='field.time'>
+            <div class="timeline-row clearfix">
+              <div>time</div>
+              <div data-bind='field:setupRange,~field.time,time' data-arg='{"min": 0, "max": 100, "restrict": 1}'></div>
+            </div>
           </div>
-          <hr>
+          <div data-name='list' data-list='{"prop": "field.list", "vars": {"v": "item"}}'>
+            <div class="timeline-row clearfix">
+              <div>{item.key}</div>
+              <div data-if='item.key|equal,easing'>
+                <select data-list='{"prop": "@easings", "vars": {"v": "easing"}}' data-bind='item.val|str,linear:val' data-act="change" data-func='easingChange'>
+                  <option value="{easing}">{easing}</option>
+                </select>
+              </div>
+              <div data-else=''>
+                <div data-bind='item:setupRange,~pd.field.time'></div>
+              </div>
+              <div>
+                <div data-if='item.key|hasUnits' >
+                  <select data-list='{"prop": "item.key", "func": "getUnits", "vars": {"v": "unit"}}' data-bind='item.unit|str,%:val' data-arg='targets[{pd.pd.dex}]fields[{pd.dex}]list[{dex}]unit' data-act="change" data-func='valChange'>
+                    <option value="{unit}">{unit}</option>
+                  </select>
+                </div>
+                <div class="icon-btn" data-act='click' data-func='removeProp' data-slot='{"t": "icons-close"}'></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+      <div class="row">
+        <button class='editor-btn' data-act='click' data-func='addField' data-arg='anim'>+ Anim</button>
+        <button data-name='cssBtn' data-bind='target|showCSS|not|toggleClass,hide' class='editor-btn' data-act='click' data-func='addField' data-arg='css'>+ CSS</button>
+      </div>
+      <hr>
     </div>
+  </div>
+  <div class="tab-controls">
+    <form data-act="form" data-func='addItem' data-arg='{target_prop}'>
+      <input name='target' required>
+      <button type='submit' class='editor-btn'>+ Target</button>
+    </form>
   </div>
 </div>

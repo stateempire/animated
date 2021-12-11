@@ -31,7 +31,7 @@ function init() {
   $doc.on('resize.tl timeline.tl', debounce(setupTimeline));
 
   function setupTimeline() {
-    let {timeline, height} = timeliner($content, loader.getTimeData());
+    let {timeline, pageHeight} = timeliner($content, loader.getTimeData());
     $doc.off('scroll.tl').on('scroll.tl', seek);
     $win.off('scrollPage').on('scrollPage', scrollPage);
     seek();
@@ -41,10 +41,10 @@ function init() {
       let $slides = $('#carousel-1 .carousel-slides');
       let bounds = $('#carousel-1')[0].getBoundingClientRect();
       let carouselWidth = $slides[0].getBoundingClientRect().width;
-      let height = $win.height();
+      let winHeight = $win.height();
       let textTop = $text[0].getBoundingClientRect().top;
       let fixed = bounds.top <= 0;
-      $slides.css('left', $win.width() - (Math.min(1, (bounds.top - height  * 0.01) / (height * 1.2 - bounds.height))) * carouselWidth);
+      $slides.css('left', $win.width() - (Math.min(1, (bounds.top - winHeight  * 0.01) / (winHeight * 1.2 - bounds.height))) * carouselWidth);
       if (fixed && !$text.hasClass('fixed')) {
         $text.css({position: 'fixed', top: textTop});
         if (textTop < 1) {
@@ -54,11 +54,11 @@ function init() {
         $text.css({position: '', top: ''});
       }
       $text.toggleClass('fixed', fixed);
-      $win.trigger('progress', 100 * $doc.scrollTop() / height);
+      $win.trigger('progress', 100 * $doc.scrollTop() / pageHeight);
     }
 
     function scrollPage(e, perc) {
-      $doc.scrollTop(perc / 100 * height);
+      $doc.scrollTop(perc / 100 * pageHeight);
     }
 
     function seek() {
