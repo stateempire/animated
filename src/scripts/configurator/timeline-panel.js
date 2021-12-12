@@ -13,9 +13,6 @@ export default function editor() {
     timedata,
     hasUnits,
     getUnits,
-    showCSS: function(target, opts) {
-      return opts.data.c.prop == 'timedata.dom' && !target.fields.filter(x => !x.time).length;
-    },
     getProps: function(list) {
       var props = getProps();
       list.forEach(function(item) {
@@ -66,15 +63,12 @@ export default function editor() {
           timedata[arg].splice(data.dex, 1);
           comp.pComp.renderList('targets');
           lightbox.close();
+          $win.trigger('timeline');
         }
       });
     },
-    addField: function({data, arg, comp}) {
-      if (arg == 'css') {
-        data.target.fields.unshift({list: []});
-      } else {
-        data.target.fields.push({time: [0, 10], list: []});
-      }
+    addField: function({data, comp}) {
+      data.target.fields.push({time: [0, 10], list: []});
       comp.renderList('fields');
       comp.update();
     },

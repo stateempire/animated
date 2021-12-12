@@ -27,34 +27,22 @@ function init() {
       $content.removeClass('invisible').css('opacity', 0).animate({opacity: 1});
     }
   });
+  $win.on('resize.tl1 timeline.tl1', debounce(setupTimeline));
+  $win.on('progress', carouselProgress);
+
   setupTimeline();
-  $win.off('.tl1').on('resize.tl1 timeline.tl1', debounce(setupTimeline));
 
   function setupTimeline() {
     let {timeline, pageHeight} = timeliner($content, loader.getTimeData());
+    let oldProgress = -1;
     $doc.off('.tl2').on('scroll.tl2', seek);
     $win.off('scrollPage').on('scrollPage', scrollPage);
     seek();
 
     function triggers() {
-      let $text = $('#carousel-1 .carousel-text');
-      let $slides = $('#carousel-1 .carousel-slides');
-      let bounds = $('#carousel-1')[0].getBoundingClientRect();
-      let carouselWidth = $slides[0].getBoundingClientRect().width;
-      let winHeight = $win.height();
-      let textTop = $text[0].getBoundingClientRect().top;
-      let fixed = bounds.top <= 0;
-      $slides.css('left', $win.width() - (Math.min(1, (bounds.top - winHeight  * 0.01) / (winHeight * 1.2 - bounds.height))) * carouselWidth);
-      if (fixed && !$text.hasClass('fixed')) {
-        $text.css({position: 'fixed', top: textTop});
-        if (textTop < 1) {
-          $text.animate({top: 0});
-        }
-      } else if (!fixed && $text.hasClass('fixed')) {
-        $text.css({position: '', top: ''});
-      }
-      $text.toggleClass('fixed', fixed);
-      $win.trigger('progress', 100 * $doc.scrollTop() / pageHeight);
+      let progress = 100 * $doc.scrollTop() / pageHeight;
+      $win.trigger('progress', [progress, progress > oldProgress]);
+      oldProgress = progress;
     }
 
     function scrollPage(e, perc) {
@@ -65,6 +53,26 @@ function init() {
       timeline.seek($doc.scrollTop());
       triggers();
     }
+  }
+
+  function carouselProgress() {
+    let $text = $('#carousel-1 .carousel-text');
+    let $slides = $('#carousel-1 .carousel-slides');
+    let bounds = $('#carousel-1')[0].getBoundingClientRect();
+    let carouselWidth = $slides[0].getBoundingClientRect().width;
+    let winHeight = $win.height();
+    let textTop = $text[0].getBoundingClientRect().top;
+    let fixed = bounds.top <= 0;
+    $slides.css('left', $win.width() - (Math.min(1, (bounds.top - winHeight  * 0.01) / (winHeight * 1.2 - bounds.height))) * carouselWidth);
+    if (fixed && !$text.hasClass('fixed')) {
+      $text.css({position: 'fixed', top: textTop});
+      if (textTop < 1) {
+        $text.animate({top: 0});
+      }
+    } else if (!fixed && $text.hasClass('fixed')) {
+      $text.css({position: '', top: ''});
+    }
+    $text.toggleClass('fixed', fixed);
   }
 }
 

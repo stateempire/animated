@@ -1,9 +1,10 @@
 .side-panel .header {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
-  width: inherit;
-  padding: 6px 10px 0;
+  width: calc($panel-width - 1px);
+  z-index: 5;
+  padding: 8px 0;
   background: #333;
 
   >* {
@@ -11,7 +12,13 @@
   }
 
   .menu-dropdown-btn {
-    margin-top: -5px;
+    margin-top: 0;
+    width: 30px;
+  }
+
+  .close-btn {
+    position: absolute;
+    right: 6px;
   }
 
   .back-btn {

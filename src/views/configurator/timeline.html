@@ -2,7 +2,7 @@
   <div data-slot='{"t": "config/header", "replace": 1}'></div>
   <div class='container'>
     <div class='timeline' data-name='timeline'>
-      <div class="timeline-row">
+      <div class="timeline-row top-row">
         <div>Speed</div>
         <div data-name='speedRange'></div>
         <div>
@@ -35,8 +35,7 @@
       <div class='clearfix' data-name='fields' data-list='{"prop": "target.fields", "vars": {"v": "field"}}'>
         <div class='field'>
           <div class="row" data-bind='field.time|not:toggleClass,styles'>
-            <span data-if='field.time'>{index}. Animation</span>
-            <span data-else=''>{index}. Styles</span>
+            <span>{index}.</span>
             <div class="buttons">
               <div data-if='field.time' data-slot='{"t": "config/play-btn", "replace": 1}'></div>
               <div class="icon-btn" data-act='click' data-func='removeField' data-slot='{"t": "config/icons-trash"}'></div>
@@ -80,8 +79,7 @@
         </div>
       </div>
       <div class="row">
-        <button class='editor-btn' data-act='click' data-func='addField' data-arg='anim'>+ Anim</button>
-        <button data-name='cssBtn' data-bind='target|showCSS|not|toggleClass,hide' class='editor-btn' data-act='click' data-func='addField' data-arg='css'>+ CSS</button>
+        <button class='editor-btn' data-act='click' data-func='addField'>+ Anim</button>
       </div>
       <hr>
     </div>

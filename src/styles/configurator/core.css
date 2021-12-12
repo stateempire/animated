@@ -3,6 +3,10 @@ body.panel-open {
     width: calc(100% - $panel-width);
     left: $panel-width;
   }
+
+  .configurator-launch {
+    display: none;
+  }
 }
 
 .side-panel {
@@ -11,7 +15,7 @@ body.panel-open {
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 99;
+  z-index: 90;
   width: $panel-width;
   border-right: 1px solid white;
   background: black;
