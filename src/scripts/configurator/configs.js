@@ -26,7 +26,7 @@ export function getRangeConfig(key) {
 }
 
 export function hasUnits(key) {
-  return ['opacity', 'scale', 'easing'].indexOf(key) < 0;
+  return 'translate left top fontSize width height'.indexOf(key) >= 0;
 }
 
 export function createItem(key) {

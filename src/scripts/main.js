@@ -57,7 +57,7 @@ function init() {
 
   function carouselProgress(e, opts) {
     let $slides = $('#carousel-slides-1');
-    $slides.css('left', $win.width() - $slides.outerWidth() * opts.targets.carousel_slides_1.progress);
+    $slides.css('left', $('#carousel-1').width() - $slides.outerWidth() * opts.targets.carousel_slides_1.progress);
   }
 }
 

@@ -100,6 +100,22 @@
     }
   }
 
+  .anim-time {
+    display: inline-block;
+    width: 60%;
+
+    .time-wrap {
+      display: inline-block;
+      vertical-align: middle;
+      margin-left: 65px;
+    }
+
+    [type="number"] {
+      width: 90px;
+      margin-left: 8px;
+    }
+  }
+
   .timeline-row {
     height: 50px;
     display: flex;
@@ -134,12 +150,8 @@
       float: left;
     }
 
-    [type="range"] {
-      width: 65%;
-    }
-
     [type="number"] {
-      width: calc(40% - 8px);
+      width: 90px;
       margin-left: 8px;
     }
   }

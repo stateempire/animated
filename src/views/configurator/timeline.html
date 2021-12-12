@@ -32,12 +32,15 @@
         <div data-act='click' data-func='toggleView'>{target.el}</div>
         <div class="icon-btn" data-act='click' data-func='removeItem' data-arg='{target_prop}' data-slot='{"t": "config/icons-close"}'></div>
       </div>
-      <div class='clearfix' data-name='fields' data-list='{"prop": "target.fields", "vars": {"v": "field"}}'>
+      <div class='clearfix' data-name='fields' data-list='{"prop": "target.fields", "vars": {"v": "field", "target_prop": "{target_prop}"}}'>
         <div class='field'>
-          <div class="row" data-bind='field.time|not:toggleClass,styles'>
-            <span>{index}.</span>
+          <div class="row">
+            <div class='anim-time'>
+              <span>{index}.</span>
+              <div class="time-wrap" data-bind='field:setupRange,~field.time,time' data-arg='{"min": 0, "max": 100, "restrict": 1}'></div>
+            </div>
             <div class="buttons">
-              <div data-if='field.time' data-slot='{"t": "config/play-btn", "replace": 1}'></div>
+              <div data-slot='{"t": "config/play-btn", "replace": 1}'></div>
               <div class="icon-btn" data-act='click' data-func='removeField' data-slot='{"t": "config/icons-trash"}'></div>
               <div class="icon-btn small bit-flag" data-bind='field.browser|number,0|testFlag,1|toggleClass,on' data-act='click' data-func='toggleBrowser' data-arg='1' data-slot='{"t": "config/icons-phone"}'></div>
               <div class="icon-btn small bit-flag" data-bind='field.browser|number,0|testFlag,2|toggleClass,on' data-act='click' data-func='toggleBrowser' data-arg='6' data-slot='{"t": "config/icons-desktop"}'></div>
@@ -49,13 +52,7 @@
               </div>
             </div>
           </div>
-          <div class="row" data-if='field.time'>
-            <div class="timeline-row clearfix">
-              <div>time</div>
-              <div data-bind='field:setupRange,~field.time,time' data-arg='{"min": 0, "max": 100, "restrict": 1}'></div>
-            </div>
-          </div>
-          <div data-name='list' data-list='{"prop": "field.list", "vars": {"v": "item"}}'>
+          <div data-name='list' data-list='{"prop": "field.list", "vars": {"v": "item", "target_prop": "{target_prop}"}}'>
             <div class="timeline-row clearfix">
               <div>{item.key}</div>
               <div data-if='item.key|equal,easing'>
@@ -67,7 +64,7 @@
                 <div data-bind='item:setupRange,~pd.field.time'></div>
               </div>
               <div>
-                <div data-if='item.key|hasUnits' >
+                <div data-if='`{target_prop}`|equal,dom;item.key|hasUnits' >
                   <select data-list='{"prop": "item.key", "func": "getUnits", "vars": {"v": "unit"}}' data-bind='item.unit|str,%:val' data-arg='targets[{pd.pd.dex}]fields[{pd.dex}]list[{dex}]unit' data-act="change" data-func='valChange'>
                     <option value="{unit}">{unit}</option>
                   </select>
