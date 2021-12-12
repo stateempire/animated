@@ -14,7 +14,7 @@ export default function() {
       }, 0);
     },
   };
-  var historyComp = getComp('history-panel', compData, {
+  var historyComp = getComp('config/history', compData, {
     applyHistory: function(opts) {
       getLoader().setTimeData(opts.data.item.timedata);
       historyComp.$root.find('.close-btn')[0].click();

@@ -1,12 +1,12 @@
-<div class='side-panel timeline-panel' data-template='timeline-panel'>
-  <div data-slot='{"t": "panel-header", "replace": 1}'></div>
+<div class='side-panel timeline-panel' data-template='config/timeline'>
+  <div data-slot='{"t": "config/header", "replace": 1}'></div>
   <div class='container'>
     <div class='timeline' data-name='timeline'>
       <div class="timeline-row">
         <div>Speed</div>
         <div data-name='speedRange'></div>
         <div>
-          <div data-slot='{"t": "play-btn", "replace": 1}'></div>
+          <div data-slot='{"t": "config/play-btn", "replace": 1}'></div>
         </div>
       </div>
       <div>
@@ -15,22 +15,22 @@
       </div>
       <div class="tabs">
         <div class="tab dom">
-          <div data-slot='{"t": "timeline-panel/targets", "replace": 1, "vars": {"target_prop": "dom"}}'></div>
+          <div data-slot='{"t": "config/timeline/targets", "replace": 1, "vars": {"target_prop": "dom"}}'></div>
         </div>
         <div class="tab obj hide">
-          <div data-slot='{"t": "timeline-panel/targets", "replace": 1, "vars": {"target_prop": "obj"}}'></div>
+          <div data-slot='{"t": "config/timeline/targets", "replace": 1, "vars": {"target_prop": "obj"}}'></div>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<div data-template='timeline-panel/targets'>
+<div data-template='config/timeline/targets'>
   <div data-name='targets' data-list='{"prop": "timedata.{target_prop}", "vars": {"v": "target", "target_prop": "{target_prop}"}}'>
     <div class="each">
-      <div class='title' data-act='click' data-func='toggleView'>
-        <div>{target.el}</div>
-        <div class="icon-btn" data-act='click' data-func='removeItem' data-arg='{target_prop}' data-slot='{"t": "icons-close"}'></div>
+      <div class='title'>
+        <div data-act='click' data-func='toggleView'>{target.el}</div>
+        <div class="icon-btn" data-act='click' data-func='removeItem' data-arg='{target_prop}' data-slot='{"t": "config/icons-close"}'></div>
       </div>
       <div class='clearfix' data-name='fields' data-list='{"prop": "target.fields", "vars": {"v": "field"}}'>
         <div class='field'>
@@ -38,12 +38,12 @@
             <span data-if='field.time'>{index}. Animation</span>
             <span data-else=''>{index}. Styles</span>
             <div class="buttons">
-              <div data-if='field.time' data-slot='{"t": "play-btn", "replace": 1}'></div>
-              <div class="icon-btn" data-act='click' data-func='removeField' data-slot='{"t": "icons-trash"}'></div>
-              <div class="icon-btn small bit-flag" data-bind='field.browser|number,0|testFlag,1|toggleClass,on' data-act='click' data-func='toggleBrowser' data-arg='1' data-slot='{"t": "icons-phone"}'></div>
-              <div class="icon-btn small bit-flag" data-bind='field.browser|number,0|testFlag,2|toggleClass,on' data-act='click' data-func='toggleBrowser' data-arg='6' data-slot='{"t": "icons-desktop"}'></div>
+              <div data-if='field.time' data-slot='{"t": "config/play-btn", "replace": 1}'></div>
+              <div class="icon-btn" data-act='click' data-func='removeField' data-slot='{"t": "config/icons-trash"}'></div>
+              <div class="icon-btn small bit-flag" data-bind='field.browser|number,0|testFlag,1|toggleClass,on' data-act='click' data-func='toggleBrowser' data-arg='1' data-slot='{"t": "config/icons-phone"}'></div>
+              <div class="icon-btn small bit-flag" data-bind='field.browser|number,0|testFlag,2|toggleClass,on' data-act='click' data-func='toggleBrowser' data-arg='6' data-slot='{"t": "config/icons-desktop"}'></div>
               <div class="menu-dropdown">
-                <a class="menu-dropdown-btn icon-btn" data-slot='{"t": "icons-add"}'></a>
+                <a class="menu-dropdown-btn icon-btn" data-slot='{"t": "config/icons-add"}'></a>
                 <div class="menu" data-name='props' data-list='{"prop": "field.list", "func": "getProps", "vars": {"v": "prop"}}'>
                   <div data-act='click' data-func='addProp'>{prop.txt}</div>
                 </div>
@@ -73,7 +73,7 @@
                     <option value="{unit}">{unit}</option>
                   </select>
                 </div>
-                <div class="icon-btn" data-act='click' data-func='removeProp' data-slot='{"t": "icons-close"}'></div>
+                <div class="icon-btn" data-act='click' data-func='removeProp' data-slot='{"t": "config/icons-close"}'></div>
               </div>
             </div>
           </div>

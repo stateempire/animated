@@ -4,6 +4,7 @@ import {getLoader} from 'configurator/init.js';
 import {getRangeConfig, createItem, hasUnits, getUnits, getProps} from 'configurator/configs.js';
 import createRange from 'configurator/components/range.js';
 import {removeFromListByValue} from 'setjs/utility/array.js';
+import alertBox from 'setjs/ui/alert-box';
 
 export default function editor() {
   let $win = $(window);
@@ -38,7 +39,7 @@ export default function editor() {
       }, config));
     },
   };
-  var editorComp = getComp('timeline-panel', compData, {
+  var editorComp = getComp('config/timeline', compData, {
     tabClick: function({$el}) {
       $el.addClass('active');
       $el.siblings().removeClass('active');
@@ -56,8 +57,17 @@ export default function editor() {
       $el.find('input').val('');
     },
     removeItem: function({comp, data, arg}) {
-      timedata[arg].splice(data.dex, 1);
-      comp.pComp.renderList('targets');
+      alertBox({
+        title: data.target.el,
+        okTxt: "Delete",
+        noClose: 0,
+        message: 'Are you sure you want to delete ' + data.target.el + '?',
+        ok: function(lightbox) {
+          timedata[arg].splice(data.dex, 1);
+          comp.pComp.renderList('targets');
+          lightbox.close();
+        }
+      });
     },
     addField: function({data, arg, comp}) {
       if (arg == 'css') {

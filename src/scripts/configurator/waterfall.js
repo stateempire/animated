@@ -5,7 +5,7 @@ import {roundNum} from 'setjs/utility/numbers.js';
 
 export default function showWaterfall() {
   var allAnims = getAnims();
-  var waterfallComp = getComp('waterfall', {
+  var waterfallComp = getComp('config/waterfall', {
     filterBy: 0,
     getAnims: function(data) {
       return data.filterBy ? allAnims.filter(x => x.target == data.filterBy) : allAnims;

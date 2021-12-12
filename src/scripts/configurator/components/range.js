@@ -6,7 +6,7 @@ export default function(opts) {
   let restrict = opts.double ? opts.restrict : 0;
   let range = max - min;
   let rangeData = setupData({double, list, round});
-  let rangeComp = getComp('range', rangeData, {
+  let rangeComp = getComp('config/range', rangeData, {
     change: function({$el, arg}) {
       let val = +$el.val();
       list[arg] = roundNum(val, decimals);

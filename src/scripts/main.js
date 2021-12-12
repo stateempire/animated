@@ -28,11 +28,11 @@ function init() {
     }
   });
   setupTimeline();
-  $doc.on('resize.tl timeline.tl', debounce(setupTimeline));
+  $win.off('.tl1').on('resize.tl1 timeline.tl1', debounce(setupTimeline));
 
   function setupTimeline() {
     let {timeline, pageHeight} = timeliner($content, loader.getTimeData());
-    $doc.off('scroll.tl').on('scroll.tl', seek);
+    $doc.off('.tl2').on('scroll.tl2', seek);
     $win.off('scrollPage').on('scrollPage', scrollPage);
     seek();
 

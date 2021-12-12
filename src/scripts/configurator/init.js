@@ -8,6 +8,7 @@ import 'setjs/plugins/template-funcs/basic-filters.js';
 import 'setjs/plugins/template-funcs/misc.js';
 import 'setjs/plugins/template-funcs/debug.js';
 import 'setjs/plugins/misc/dropdown-menu.js';
+import 'setjs/plugins/jquery/lightbox.js';
 
 import 'configurator/funcs.js';
 import 'configurator/waterfall.js';

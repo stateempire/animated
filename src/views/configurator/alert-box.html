@@ -1,0 +1,10 @@
+<div class="alert" data-template="common/alert-box">
+  <h4 data-bind="title"></h4>
+  <p data-bind="message"></p>
+  <p class="error" data-bind="errorMsg"></p>
+  <div class="buttons">
+    <button class="button {o:noCls}" data-if="noBtn" data-act="click" data-func="no" data-bind="noTxt:str,Cancel|t"></button>
+    <button class="button solid {o:okCls}" data-act="click" data-func="ok" data-bind="okTxt:str,OK|t"></button>
+  </div>
+  <div class="popup-close" data-slot='{"t": "config/icons-close"}'></div>
+</div>

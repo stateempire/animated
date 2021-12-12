@@ -2,7 +2,7 @@ import getComp from 'setjs/template/component.js';
 
 export default function(opts) {
   let isBusy = 0;
-  let exOpts = $.extend({noBtn: opts.noTxt, noClose: 1}, opts);
+  let exOpts = $.extend({noBtn: opts.noTxt, noClose: 1, cls: 'fixed full-screen center-flex'}, opts);
   let alertComp = getComp('common/alert-box', exOpts, {
     no: function() {
       if (isBusy) return;
