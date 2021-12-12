@@ -15,8 +15,8 @@ function displayTime() {
   $('#data-time').text(new Date(getLoader().getTimeData().timestamp).toLocaleString());
 }
 
-function currentTime(e, progress) {
-  $('#current-time').text(progress.toFixed(1));
+function currentTime(e, opts) {
+  $('#current-time').text(opts.progress.toFixed(1));
 }
 
 function createDownloadUrl() {

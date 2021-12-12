@@ -1,10 +1,7 @@
 .carousel {
-  height: 100%;
-  margin-top: 100vh;
-
   .carousel-slides {
     display: inline-block;
-    position: fixed;
+    position: absolute;
     bottom: 50px;
     white-space: nowrap;
 
@@ -20,10 +17,7 @@
 
   .carousel-text {
     background: white;
-    width: 100%;
     height: 36vh;
-    display: flex;
-    align-items:center;
-    justify-content:center;
+    color: orange;
   }
 }

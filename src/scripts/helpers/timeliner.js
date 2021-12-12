@@ -14,14 +14,14 @@ export default function($container, timedata) {
   $container.css('height', time + winHeight);
 
   timedata.obj.forEach(function(target) {
-    createTargets(target.fields, 0, objTargets[target.el] = {});
+    createTargets(target.fields, 0, objTargets[target.el.replaceAll('-', '_')] = {});
   });
 
   timedata.dom.forEach(function(target) {
     createTargets(target.fields, $(target.el));
   });
 
-  return {timeline, pageHeight: time};
+  return {timeline, pageHeight: time, targets: objTargets};
 
   function createTargets(fields, $el, animObj) {
     fields.filter(field => ((field.browser || -1) & getBrowserFlag(winWidth))).forEach(function(field) {
