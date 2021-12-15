@@ -25,32 +25,12 @@
   ],
   "dom": [
     {
-      "el": "#intro",
-      "fields": [
-        {
-          "time": [
-            0,
-            10
-          ],
-          "list": [
-            {
-              "key": "opacity",
-              "val": [
-                0,
-                1
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
       "el": "#carousel-1",
       "fields": [
         {
           "time": [
-            10,
-            20
+            25,
+            35
           ],
           "list": [
             {
@@ -76,6 +56,62 @@
                 -100
               ],
               "unit": "%"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "el": "#video-1",
+      "fields": [
+        {
+          "time": [
+            10,
+            20
+          ],
+          "list": [
+            {
+              "key": "opacity",
+              "val": [
+                0,
+                1
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "el": "#intro",
+      "fields": [
+        {
+          "time": [
+            0,
+            10
+          ],
+          "list": [
+            {
+              "key": "translateY",
+              "val": [
+                0,
+                -100
+              ],
+              "unit": "%"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "targets": [
+    null,
+    null,
+    {
+      "fields": [
+        {
+          "list": [
+            {
+              "unit": "px"
             }
           ]
         }

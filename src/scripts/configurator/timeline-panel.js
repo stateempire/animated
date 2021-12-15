@@ -35,6 +35,9 @@ export default function editor() {
         }
       }, config));
     },
+    slotData: function(_, {target_prop}) {
+      return {items: timedata[target_prop], target_prop};
+    },
   };
   var editorComp = getComp('config/timeline', compData, {
     tabClick: function({$el}) {
@@ -53,14 +56,14 @@ export default function editor() {
       comp.renderList('targets');
       $el.find('input').val('');
     },
-    removeItem: function({comp, data, arg}) {
+    removeItem: function({comp, data}) {
       alertBox({
         title: data.target.el,
-        okTxt: "Delete",
+        okTxt: 'Delete',
         noClose: 0,
         message: 'Are you sure you want to delete ' + data.target.el + '?',
         ok: function(lightbox) {
-          timedata[arg].splice(data.dex, 1);
+          data.pd.items.splice(data.dex, 1);
           comp.pComp.renderList('targets');
           lightbox.close();
           $win.trigger('timeline');
@@ -100,11 +103,13 @@ export default function editor() {
       comp.$root.toggleClass('open');
       // comp.$root.siblings().removeClass('open');
     },
-    valChange: function({$el, arg}) {
-      changeValue(arg, $el.val());
+    unitChange: function(opts) {
+      opts.data.item.unit = opts.$el.val();
+      $win.trigger('timeline');
     },
     easingChange: function(opts) {
       opts.data.item.val = opts.$el.val();
+      $win.trigger('timeline');
     },
   });
 
