@@ -4,6 +4,7 @@ import {sort} from 'setjs/utility/array.js';
 import {roundNum} from 'setjs/utility/numbers.js';
 
 export default function showWaterfall() {
+  let $win = $(window);
   var allAnims = getAnims();
   var waterfallComp = getComp('config/waterfall', {
     filterBy: 0,
@@ -40,6 +41,7 @@ export default function showWaterfall() {
         anim.end = anim.field.time[1] = roundNum(anim.end * ratio, 2);
       });
       waterfallComp.renderList('anims');
+      $win.trigger('timeline');
     },
     expand: function() {
       allAnims.forEach(anim => {
@@ -47,6 +49,7 @@ export default function showWaterfall() {
         anim.end = anim.field[1] = roundNum(anim.end * 0.95, 2);
       });
       waterfallComp.renderList('anims');
+      $win.trigger('timeline');
     }
   });
   $('body').append(waterfallComp.$root).addClass('panel-open');
@@ -63,15 +66,21 @@ export default function showWaterfall() {
 function getAnims() {
   var timedata = getLoader().getTimeData();
   var anims = [];
-  timedata.targets.forEach(function(target) {
-    anims = anims.concat(target.fields.filter(x => x.time).map(field => {
-      return {
-        start: field.time[0],
-        end: field.time[1],
-        field,
-        target,
-      };
-    }));
-  });
+  addAnims(timedata.dom);
+  addAnims(timedata.obj);
   return sort(anims, 'start');
+
+  function addAnims(list, type) {
+    list.forEach(function(target) {
+      anims = anims.concat(target.fields.filter(x => x.time).map(field => {
+        return {
+          type,
+          start: field.time[0],
+          end: field.time[1],
+          field,
+          target,
+        };
+      }));
+    });
+  }
 }

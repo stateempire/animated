@@ -9,7 +9,7 @@
         </div>
         <div data-slot='{"t": "config/play-btn", "replace": 1, "prop": "anim"}'></div>
         <input type="number" min='0' max='100' step='0.2' data-bind='anim.end:val' data-act='change' data-func='changeEnd'>
-        <a class="target-btn" data-act='click' data-func='applyFilter' title='{anim.target.id}'>{anim.target.id}</a>
+        <a class="target-btn" data-act='click' data-func='applyFilter' title='{anim.target.el}'>{anim.target.el}</a>
       </div>
     </div>
     <div class="row">
