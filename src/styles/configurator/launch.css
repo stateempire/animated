@@ -27,4 +27,11 @@
   #data-time {
     margin-top: 6px;
   }
+
+  .close-btn {
+    display: none;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
 }

@@ -5,6 +5,14 @@ body.panel-open {
   }
 
   .configurator-launch {
+    width: $panel-width;
+
+    .close-btn {
+      display: block;
+    }
+  }
+
+  .menu-only {
     display: none;
   }
 }

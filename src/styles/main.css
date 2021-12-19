@@ -11,6 +11,7 @@
 @import 'components/nav';
 
 @import 'sections/carousel';
+@import 'sections/contact';
 @import 'sections/intro';
 
 @import 'html5bp/last';

@@ -1,7 +1,22 @@
 <div class="configurator-launch" data-template='config/launch'>
-  <div data-slot='{"t": "config/menu", "replace": 1}'></div>
-  <div class="icon-btn" data-act='click' data-func='showTimeline' data-slot='{"t": "config/icons-time"}'></div>
+  <div class="menu-dropdown">
+    <a class="menu-dropdown-btn icon-btn" data-slot='{"t": "config/icons-ellipsis"}'></a>
+    <div class="menu">
+      <a data-name='downloadBtn' class='hide'></a>
+      <a data-act='click' data-func='saveHistory'>Save</a>
+      <a data-act='click' data-func='showHistory'>History</a>
+      <a data-act='click' data-func='showTimeline'>Timeline</a>
+      <a data-act='click' data-func='showWaterfall'>Waterfall</a>
+      <a data-act='click' data-func='download'>Export</a>
+      <label class='file-btn'>
+        Import
+        <input type="file" data-act="change" data-func='import'/>
+      </label>
+    </div>
+  </div>
+  <div class="icon-btn menu-only" data-act='click' data-func='showTimeline' data-slot='{"t": "config/icons-time"}'></div>
   <div data-slot='{"t": "config/play-btn", "replace": 1}'></div>
-  <div id='data-time'></div>
+  <div id='data-time' class="menu-only"></div>
+  <div class="icon-btn close-btn" data-act='click' data-func='closePanel' data-slot='{"t": "config/icons-close"}'></div>
   <div id='current-time'></div>
 </div>

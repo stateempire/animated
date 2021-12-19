@@ -149,8 +149,8 @@
       "fields": [
         {
           "time": [
-            10,
-            20
+            3,
+            10
           ],
           "list": [
             {
@@ -158,6 +158,21 @@
               "val": [
                 0,
                 1
+              ]
+            }
+          ]
+        },
+        {
+          "time": [
+            85,
+            95
+          ],
+          "list": [
+            {
+              "key": "opacity",
+              "val": [
+                1,
+                0
               ]
             }
           ]
@@ -231,6 +246,41 @@
             {
               "key": "sequence",
               "val": "fade-out-blow-up"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "el": "#contact",
+      "fields": [
+        {
+          "time": [
+            85,
+            95
+          ],
+          "list": [
+            {
+              "key": "opacity",
+              "val": [
+                0,
+                1
+              ]
+            }
+          ]
+        },
+        {
+          "time": [
+            90,
+            95
+          ],
+          "list": [
+            {
+              "key": "scale",
+              "val": [
+                1,
+                1.1
+              ]
             }
           ]
         }

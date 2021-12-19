@@ -42,7 +42,7 @@ function panelFunc(func) {
   };
 }
 
-addAction('close', close);
+addAction('closePanel', close);
 addAction('download', download);
 addAction('saveHistory', function() {
   saveHistory();

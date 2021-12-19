@@ -1,13 +1,9 @@
 <div class='side-panel timeline-panel' data-template='config/timeline'>
-  <div data-slot='{"t": "config/header", "replace": 1}'></div>
   <div class='container'>
     <div class='timeline' data-name='timeline'>
       <div class="timeline-row top-row">
         <div>Speed</div>
         <div data-name='speedRange'></div>
-        <div>
-          <div data-slot='{"t": "config/play-btn", "replace": 1}'></div>
-        </div>
       </div>
       <div>
         <div class="tab-btn active" data-act='click' data-func="tabClick"><span>DOM</span></div>
@@ -66,7 +62,7 @@
               </div>
               <div data-elif='item.key|equal,sequence'>
                 <select data-list='{"prop": "rd.timedata.sequences"}' data-bind='item.val:val' data-act="change" data-func='valChange'>
-                  <option value="{key}">{key}</option>
+                  <option value="{val.el}">{val.el}</option>
                 </select>
               </div>
               <div data-else=''>
