@@ -2,13 +2,8 @@
   text-align: center;
   background: #111;
 
-  .heading {
-    font-size: 2rem;
+  .logo {
     margin: 200px auto 120px;
-  }
-
-  .msg {
-    font-size: 1.6rem;
   }
 
   .scroll {

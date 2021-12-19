@@ -1,11 +1,13 @@
 import anime from 'animejs';
 import {debounce} from 'setjs/utility/calls.js';
+import {roundNum} from 'setjs/utility/numbers.js';
 import loader from 'app/loader.js';
 import configInit from 'configurator/init.js';
 import timeliner from 'helpers/timeliner.js';
 
 $(function() {
   zIndex();
+  fontSizes();
   configInit(loader, function() {
     setTimeout(init, 2500);
   });
@@ -33,20 +35,20 @@ function init() {
   setupTimeline();
 
   function setupTimeline() {
-    let {timeline, pageHeight, targets} = timeliner($content, loader.getTimeData());
+    let {timeline, scrollMax, targets} = timeliner($content, loader.getTimeData());
     let oldProgress = -1;
     $doc.off('.tl2').on('scroll.tl2', seek);
     $win.off('scrollPage').on('scrollPage', scrollPage);
     seek();
 
     function triggers() {
-      let progress = 100 * $doc.scrollTop() / pageHeight;
+      let progress = 100 * $doc.scrollTop() / scrollMax;
       $win.trigger('progress', {progress, forward: progress > oldProgress, targets});
       oldProgress = progress;
     }
 
     function scrollPage(e, perc) {
-      $doc.scrollTop(perc / 100 * pageHeight);
+      $doc.scrollTop(perc / 100 * scrollMax);
     }
 
     function seek() {
@@ -67,4 +69,20 @@ function zIndex() {
     styles.push(`.z-${i}{z-index:${i};}`);
   }
   $('head').append('<style>' + styles.join('\n') + '</style>');
+}
+
+function fontSizes() {
+  $('head').append(`<style>${createSize('lg', 5)}${mediaSize('md', 4, 1024)}${mediaSize('sm', 3, 768)}${mediaSize('xs', 2, 594)}${mediaSize('xxs', 2, 480)}</style>`);
+
+  function createSize(prefix, max) {
+    let styles = [];
+    for (var i = 0.9; i <= max; i = roundNum(i + 0.1, 1)) {
+      styles.push(`.${prefix}-${('' + (i)).replace('.', '-')}{font-size:${i}rem;}`);
+    }
+    return styles.join('\n') + '\n';
+  }
+
+  function mediaSize(prefix, max, res) {
+    return `@media only screen and (max-width: ${res}px) {\n${createSize(prefix, max)}\n}`;
+  }
 }

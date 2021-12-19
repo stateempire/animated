@@ -107,7 +107,7 @@ export default function editor() {
       opts.data.item.unit = opts.$el.val();
       $win.trigger('timeline');
     },
-    easingChange: function(opts) {
+    valChange: function(opts) {
       opts.data.item.val = opts.$el.val();
       $win.trigger('timeline');
     },

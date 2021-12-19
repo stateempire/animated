@@ -9,9 +9,10 @@ const propList = [
   'easing',
   'width',
   'height',
+  'sequence',
 ];
 
-export const dataVersion = 5;
+export const dataVersion = 6;
 
 export function getRangeConfig(key) {
   if (key == 'opacity') {

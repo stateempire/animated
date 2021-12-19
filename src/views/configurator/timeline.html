@@ -12,6 +12,7 @@
       <div>
         <div class="tab-btn active" data-act='click' data-func="tabClick"><span>DOM</span></div>
         <div class="tab-btn" data-act='click' data-func="tabClick"><span>OBJ</span></div>
+        <div class="tab-btn" data-act='click' data-func="tabClick"><span>SEQ</span></div>
       </div>
       <div class="tabs">
         <div class="tab dom">
@@ -19,6 +20,9 @@
         </div>
         <div class="tab obj hide">
           <div data-slot='{"t": "config/timeline/targets", "func": "slotData", "replace": 1, "target_prop": "obj"}'></div>
+        </div>
+        <div class="tab seq hide">
+          <div data-slot='{"t": "config/timeline/targets", "func": "slotData", "replace": 1, "target_prop": "sequences"}'></div>
         </div>
       </div>
     </div>
@@ -56,8 +60,13 @@
             <div class="timeline-row clearfix">
               <div>{item.key}</div>
               <div data-if='item.key|equal,easing'>
-                <select data-list='{"prop": "@easings", "vars": {"v": "easing"}}' data-bind='item.val|str,linear:val' data-act="change" data-func='easingChange'>
+                <select data-list='{"prop": "@easings", "vars": {"v": "easing"}}' data-bind='item.val|str,linear:val' data-act="change" data-func='valChange'>
                   <option value="{easing}">{easing}</option>
+                </select>
+              </div>
+              <div data-elif='item.key|equal,sequence'>
+                <select data-list='{"prop": "rd.timedata.sequences"}' data-bind='item.val:val' data-act="change" data-func='valChange'>
+                  <option value="{key}">{key}</option>
                 </select>
               </div>
               <div data-else=''>

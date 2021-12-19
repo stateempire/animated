@@ -1,14 +1,97 @@
 {
   "timestamp": 1639338589804,
   "pages": 6,
+  "sequences": [
+    {
+      "el": "fade-out-blow-up",
+      "fields": [
+        {
+          "list": [
+            {
+              "key": "opacity",
+              "val": [
+                0,
+                1
+              ]
+            },
+            {
+              "key": "easing",
+              "val": "easeInQuad"
+            }
+          ],
+          "time": [
+            0,
+            4
+          ]
+        },
+        {
+          "list": [
+            {
+              "key": "opacity",
+              "val": [
+                1,
+                0
+              ]
+            },
+            {
+              "key": "easing",
+              "val": "easeOutSine"
+            }
+          ],
+          "time": [
+            6,
+            14
+          ]
+        },
+        {
+          "time": [
+            1,
+            4
+          ],
+          "list": [
+            {
+              "key": "scale",
+              "val": [
+                0.1,
+                6
+              ]
+            },
+            {
+              "key": "easing",
+              "val": "easeInQuad"
+            }
+          ]
+        },
+        {
+          "time": [
+            6,
+            18
+          ],
+          "list": [
+            {
+              "key": "scale",
+              "val": [
+                6,
+                90
+              ]
+            },
+            {
+              "key": "easing",
+              "val": "easeOutQuad"
+            }
+          ]
+        }
+      ]
+    }
+  ],
   "obj": [
     {
-      "el": "carousel-slides-1",
+      "el": "carousel_slides_1",
       "fields": [
         {
           "time": [
-            20,
-            60
+            35,
+            75
           ],
           "list": [
             {
@@ -45,8 +128,8 @@
         },
         {
           "time": [
-            60,
-            70
+            75,
+            85
           ],
           "list": [
             {
@@ -101,17 +184,53 @@
           ]
         }
       ]
-    }
-  ],
-  "targets": [
-    null,
-    null,
+    },
     {
+      "el": "#msgs .msg:eq(0)",
       "fields": [
         {
+          "time": [
+            12,
+            21
+          ],
           "list": [
             {
-              "unit": "px"
+              "key": "sequence",
+              "val": "fade-out-blow-up"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "el": "#msgs .msg:eq(1)",
+      "fields": [
+        {
+          "time": [
+            16,
+            25
+          ],
+          "list": [
+            {
+              "key": "sequence",
+              "val": "fade-out-blow-up"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "el": "#msgs .msg:eq(2)",
+      "fields": [
+        {
+          "time": [
+            20,
+            29
+          ],
+          "list": [
+            {
+              "key": "sequence",
+              "val": "fade-out-blow-up"
             }
           ]
         }

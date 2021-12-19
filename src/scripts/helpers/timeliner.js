@@ -1,8 +1,8 @@
 import anime from 'animejs';
-import {getWinWidth, getWinHeight} from 'helpers/app-helpers.js';
+import {getWinHeight} from 'helpers/app-helpers.js';
+import {getVal} from 'setjs/utility/array.js';
 
 export default function($container, timedata) {
-  let winWidth = getWinWidth();
   let winHeight = getWinHeight();
   let objTargets = {};
   let time = timedata.pages * winHeight;
@@ -14,19 +14,21 @@ export default function($container, timedata) {
   $container.css('height', time + winHeight);
 
   timedata.obj.forEach(function(target) {
-    createTargets(target.fields, 0, objTargets[target.el.replaceAll('-', '_')] = {});
+    createTargets(target, 0, objTargets[target.el] = {});
   });
 
   timedata.dom.forEach(function(target) {
-    createTargets(target.fields, $(target.el));
+    createTargets(target, $(target.el));
   });
 
-  return {timeline, pageHeight: time, targets: objTargets};
+  return {timeline, scrollMax: time, targets: objTargets};
 
-  function createTargets(fields, $el, animObj) {
-    fields.filter(field => ((field.browser || -1) & getBrowserFlag(winWidth))).forEach(function(field) {
+  function createTargets(target, $el, animObj) {
+    targetFields(target).filter(field => ((field.browser || -1) & getBrowserFlag($container.width()))).forEach(function(field) {
       let item = {};
-      field.list.forEach(function(config) {
+      let listItems = field.list.filter(x => x.key != 'sequence');
+      if (!listItems.length) return;
+      listItems.forEach(function(config) {
         let unit = config.unit || 0;
         item[config.key] = Array.isArray(config.val) ? config.val.slice().map(x => x + unit) : isNaN(config.val) ? config.val : config.val + unit;
         if (animObj) {
@@ -42,12 +44,36 @@ export default function($container, timedata) {
       }
     });
   }
+
+  function targetFields(target) {
+    let fields = [];
+    target.fields.forEach(function(field) {
+      fields.push(field);
+      field.list.forEach(function(item) {
+        if (item.key == 'sequence') {
+          let sMax = 0;
+          let seqFields = getVal(timedata.sequences, item.val, 'el').fields;
+          seqFields.forEach(function(sField) {
+            sMax = Math.max(sField.time[1], sMax);
+          });
+          sMax = (field.time[1] - field.time[0]) / sMax;
+          seqFields.forEach(function(sField) {
+            fields.push({
+              time: [field.time[0] + sField.time[0] * sMax, field.time[0] + sField.time[1] * sMax],
+              list: sField.list,
+            });
+          });
+        }
+      });
+    });
+    return fields;
+  }
 }
 
-function getBrowserFlag(winWidth) {
-  if (winWidth <= 720) {
+function getBrowserFlag(containerWidth) {
+  if (containerWidth <= 720) {
     return 1;
-  } else if (winWidth <= 1024) {
+  } else if (containerWidth <= 1024) {
     return 2;
   }
   return 4;
