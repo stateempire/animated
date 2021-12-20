@@ -3,8 +3,8 @@
   "scripts": {
     "start": "gulp",
     "build": "gulp dist --env=production",
-    "deploy-dev": "gulp deploy_aws --env=development",
-    "deploy-prod": "gulp deploy_aws --env=production",
+    "deploy-dev": "gulp deploy --env=development",
+    "deploy-prod": "gulp deploy --env=production",
     "test-prod": "gulp test --env=production",
     "lint-build": "eslint \"gulpfile.js/**\""
   },

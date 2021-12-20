@@ -47,7 +47,7 @@ async function prepareCloudformation() {
   });
 }
 
-async function deploy_aws(cb) {
+async function deploy(cb) {
   var {environment, client, project, domain, subdomain, server_edge, cache_control_max_age, sslcert, distribution_id} = settings;
   var env = environment.replace('development', 'dev').replace('production', 'prod');
   var tags = `client=${client} project=${project} environment=${environment}`;
@@ -101,4 +101,4 @@ async function deploy_aws(cb) {
   cb();
 }
 
-exports.deploy_aws = deploy_aws;
+exports.deploy = deploy;
