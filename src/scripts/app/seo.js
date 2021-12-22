@@ -1,7 +1,7 @@
 import eventManager, {eventTypes} from 'setjs/kernel/event-manager.js';
 import langHelper from 'LangHelper';
-// import router from 'Router';
-// import setup from 'config/setup.js';
+import router from 'Router';
+import setup from 'config/setup.js';
 
 const $head = $('head');
 
@@ -30,16 +30,16 @@ eventManager.addListener(eventTypes.loadStart, 'seo', function({route}) {
   $head.find('[property="twitter:title"]').attr('content', title);
   $head.find('[property="twitter:description"]').attr('content', description);
   $head.find('[property="twitter:image"]').attr('content', image);
-  // $head.find('link[rel="alternate"]').remove();
-  // if (route.lang) {
-  //   let pathPrefix = window.location.origin + router.prefix;
-  //   setup.languages().forEach(function(lang) {
-  //     if (lang !== route.lang) {
-  //       var $el = $('<link rel="alternate">')
-  //                   .attr('hreflang', lang)
-  //                   .attr('href', pathPrefix + lang + (route.path ? '/' + route.path : ''));
-  //       $head.append($el);
-  //     }
-  //   });
-  // }
+  $head.find('link[rel="alternate"]').remove();
+  if (route.lang) {
+    let pathPrefix = window.location.origin + router.prefix;
+    setup.languages().forEach(function(lang) {
+      if (lang !== route.lang) {
+        var $el = $('<link rel="alternate">')
+                    .attr('hreflang', {cn: 'zh-TW'}[lang] || lang)
+                    .attr('href', pathPrefix + lang + (route.path ? '/' + route.path : ''));
+        $head.append($el);
+      }
+    });
+  }
 });

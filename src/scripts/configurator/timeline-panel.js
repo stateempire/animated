@@ -7,7 +7,6 @@ import {removeFromListByValue} from 'setjs/utility/array.js';
 import alertBox from 'setjs/ui/alert-box';
 
 export default function editor() {
-  let $win = $(window);
   let timedata = getLoader().getTimeData();
   let compData = {
     timedata,

@@ -1,9 +1,6 @@
 import eventManager, {eventTypes} from 'setjs/kernel/event-manager.js';
 import anime from 'animejs';
 
-var $win = $(window);
-var $doc = $(document);
-
 eventManager.addListener(eventTypes.loaded, 'parallax', parallax);
 eventManager.addListener(eventTypes.resize, 'parallax', parallax);
 

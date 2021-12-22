@@ -4,7 +4,6 @@ import {sort} from 'setjs/utility/array.js';
 import {roundNum} from 'setjs/utility/numbers.js';
 
 export default function showWaterfall() {
-  let $win = $(window);
   var allAnims = getAnims();
   var waterfallComp = getComp('config/waterfall', {
     filterBy: 0,

@@ -11,7 +11,9 @@
    "globals": {
       "DocumentTouch": true,
      "$": true,
-     "APP_SETTINGS": true
+     "APP_SETTINGS": true,
+     "$win": true,
+     "$doc": true
    },
    "rules": {
       "no-console": "off",
