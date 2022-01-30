@@ -51,15 +51,11 @@ export default function($container, timedata) {
       fields.push(field);
       field.list.forEach(function(item) {
         if (item.key == 'sequence') {
-          let sMax = 0;
           let seqFields = getVal(timedata.sequences, item.val, 'el').fields;
-          seqFields.forEach(function(sField) {
-            sMax = Math.max(sField.time[1], sMax);
-          });
-          sMax = (field.time[1] - field.time[0]) / sMax;
+          let mul = (field.time[1] - field.time[0]) / 100;
           seqFields.forEach(function(sField) {
             fields.push({
-              time: [field.time[0] + sField.time[0] * sMax, field.time[0] + sField.time[1] * sMax],
+              time: [field.time[0] + sField.time[0] * mul, field.time[0] + sField.time[1] * mul],
               list: sField.list,
             });
           });

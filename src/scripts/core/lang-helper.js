@@ -1,8 +1,8 @@
 function noAct() {}
 
 export default {
-  initData: function({success}) {
-    success();
+  initData: function(opts) {
+    opts.success();
   },
   init: noAct,
   lang: noAct,

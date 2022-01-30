@@ -13,3 +13,7 @@
     bottom: 120px;
   }
 }
+
+#msgs {
+  line-height: 1;
+}

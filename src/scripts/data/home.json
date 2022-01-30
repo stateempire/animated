@@ -6,6 +6,10 @@
       "el": "fade-out-blow-up",
       "fields": [
         {
+          "time": [
+            0,
+            20
+          ],
           "list": [
             {
               "key": "opacity",
@@ -18,13 +22,13 @@
               "key": "easing",
               "val": "easeInQuad"
             }
-          ],
-          "time": [
-            0,
-            4
           ]
         },
         {
+          "time": [
+            30,
+            100
+          ],
           "list": [
             {
               "key": "opacity",
@@ -37,16 +41,12 @@
               "key": "easing",
               "val": "easeOutSine"
             }
-          ],
-          "time": [
-            6,
-            14
           ]
         },
         {
           "time": [
-            1,
-            4
+            5,
+            20
           ],
           "list": [
             {
@@ -64,8 +64,8 @@
         },
         {
           "time": [
-            6,
-            18
+            30,
+            100
           ],
           "list": [
             {
@@ -77,7 +77,7 @@
             },
             {
               "key": "easing",
-              "val": "easeOutQuad"
+              "val": "easeOutSine"
             }
           ]
         }
