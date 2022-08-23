@@ -7,9 +7,9 @@ addAction('gdprAgree', function() {
 });
 
 eventManager.addListener(eventTypes.init, 'gdpr', function() {
-  var $body = $('body').toggleClass('gdpr-hide', storage.get(storageTypes.gdpr));
+  $('body').toggleClass('gdpr-hide', storage.get(storageTypes.gdpr));
+});
 
-  eventManager.addListener(eventTypes.gdpr, 'gdpr', function(agreed) {
-    $body.toggleClass('gdpr-hide', agreed);
-  });
+eventManager.addListener(eventTypes.gdpr, 'gdpr', function(agreed) {
+  $('body').toggleClass('gdpr-hide', agreed);
 });

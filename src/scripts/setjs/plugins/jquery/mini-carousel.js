@@ -13,14 +13,21 @@ $.fn.miniCarousel = function() {
   var slider = $carousel.data('slider');
   var opts = $el.data('carousel');
   if (!slider) {
-    opts = $.extend({duration: 750, spring: 0.25}, typeof opts == 'object' ? opts : 0);
-    slider = $carousel.slider(opts).data('slider');
+    opts = $.extend({duration: 750, spring: 0.25, changed}, typeof opts == 'object' ? opts : 0);
+    slider = $carousel.slider(opts);
+    $el.find('.left').addClass('disabled');
     $el.find('.left, .right').on('click', function() {
-      slider.move($(this).hasClass('left') ? -1 : 1);
+      let index = slider.move($(this).hasClass('left') ? -1 : 1);
+      $el.find('.left').toggleClass('disabled', index == 0);
+      $el.find('.right').toggleClass('disabled', index == slider.count - 1);
     });
     if (opts.time > 0) {
       setTimeout(next, opts.time * 1000);
     }
+  }
+
+  function changed(index) {
+    $el.find('.js-index').text(index + 1);
   }
 
   function next() {

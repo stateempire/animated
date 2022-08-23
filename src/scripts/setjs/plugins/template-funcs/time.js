@@ -1,6 +1,6 @@
 import {addFuncs} from 'core/acts-funcs.js';
 
-var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'Octomber', 'November', 'December'];
+var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 addFuncs({
   showDate: function(time, {$el}) {

@@ -7,19 +7,26 @@ import {configData, getConfigTemplate, tmpStr} from 'setjs/template/template-con
 import {getTemplate} from 'setjs/template/templates.js';
 import {func} from 'core/acts-funcs.js';
 
-function processSlot($item, comp, data, slotConfig, forceReplace) {
-  let slotComp = createComponent(getConfigTemplate('slot', slotConfig), configData(slotConfig, data), comp.actions, comp);
+function processSlot($item, comp, data, config) {
+  let rd = comp.rComp && comp.rComp.data || data;
+  let template = (config.tf && (rd[config.tf] || func(config.tf))(config, comp, data)) || getConfigTemplate('slot', config);
+  let slotComp = createComponent(template, configData(config, data), comp.actions, comp);
+  let $named;
   $item.empty();
   if (slotComp) {
-    slotComp.$root.data('slotConfig', slotConfig);
-    storeItemByName(comp, slotConfig.name || $item.data('name'), slotComp);
-    if (slotConfig.replace || forceReplace) {
+    storeItemByName(comp, config.name, slotComp);
+    if (config.replace) {
       $item.replaceWith(slotComp.$root);
+      $named = slotComp.$root;
     } else {
       $item.append(slotComp.$root);
+      $named = $item;
     }
-  } else if (slotConfig.replace) {
+  } else if (config.replace) {
     $item.remove();
+  }
+  if (comp['$' + config.name]) {
+    comp['$' + config.name] = $named;
   }
 }
 
@@ -38,7 +45,7 @@ function renderList(comp, data, listData) {
   oldList && oldList.forEach(comp => {
     cleanupWatch(comp.data);
   });
-  if (listData.name) {
+  if (config.name) {
     listData.append = function(items) {
       $.each(items, function(key, val) {
         appendItem(key, val, 1);
@@ -68,9 +75,9 @@ function renderList(comp, data, listData) {
 
 function createList($el, comp, data) {
   var config = $el.data('list');
-  var template = $el.data('tname') && getConfigTemplate('list', config, $el.data('tname'));
-  var listData = $.extend({name: config.name || $el.data('name'), $el, c: config, t: template, i: 'index', k: 'key', v: 'val', d: 'dex'}, config.vars);
-  storeItemByName(comp, listData.name, listData);
+  var template = !config.tf && getConfigTemplate('list', config, $el.data('tname'));
+  var listData = $.extend({$el, c: config, t: template, i: 'index', k: 'key', v: 'val', d: 'dex'}, config.vars);
+  storeItemByName(comp, config.name, listData);
   renderList(comp, data, listData);
 }
 
@@ -84,6 +91,7 @@ function createList($el, comp, data) {
  */
 function createComponent(templateStr, data, actions, pComp) {
   var $root, tmpRoot, $watchElements, $bindingElements, $actElements, $listElements, comp;
+  var slots = {};
   data = data || {};
   actions = actions || {};
   $root = $(tmpStr(templateStr, data));
@@ -102,13 +110,15 @@ function createComponent(templateStr, data, actions, pComp) {
       setjs.compUpdate($selection);
     },
     renderSlot: function(name) {
+      let slot = slots[name];
       let slotComp = comp[name];
-      if (slotComp) {
-        delete comp[name];
-        processSlot(slotComp.$root, comp, data, slotComp.$root.data('slotConfig'), 1);
-        setjs.compUpdate(comp[name].$root);
-        cleanupWatch(slotComp.data);
+      delete comp[name];
+      processSlot(slot.$item, comp, data, slot.config);
+      if (slot.config.replace) {
+        slot.$item = comp[name].$root;
       }
+      setjs.compUpdate(comp[name].$root);
+      slotComp && cleanupWatch(slotComp.data);
     },
     renderList: function() {
       $.each(arguments, function(i, name) {
@@ -145,6 +155,10 @@ function createComponent(templateStr, data, actions, pComp) {
   $actElements = dataAttrFind($root, 'act');
   $listElements = dataAttrFind($root, 'list');
   dataAttrFunc($root, 'name', function($item, name) {
+    let config = $item.data('slot') || $item.data('list');
+    if (config) {
+      config.name = name;
+    }
     name = '$' + name;
     if (comp[name]) {
       fatal('Repeat name', name);
@@ -152,8 +166,12 @@ function createComponent(templateStr, data, actions, pComp) {
     comp[name] = $item;
   });
   // You cannot call dataAttrFunc() after this, as this might add items which can affect the selection
-  dataAttrFunc($root, 'slot', function($item, slotConfig) {
-    processSlot($item, comp, data, slotConfig);
+  dataAttrFunc($root, 'slot', function($item, config) {
+    config.t = $item.data('tname');
+    processSlot($item, comp, data, config);
+    if (config.name) {
+      slots[config.name] = {config, $item: config.replace ? comp[config.name].$root : $item};
+    }
   });
   $listElements.each(function(i, item) {
     createList($(item), comp, data);

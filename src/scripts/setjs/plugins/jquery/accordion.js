@@ -1,6 +1,7 @@
 $.fn.accordion = function(opts) {
   var $accordion = this;
   var aimationTime = 500;
+  var controller = {toggle};
   opts = typeof opts == 'object' ? opts : {};
   aimationTime = opts.time > 0 ? opts.time : aimationTime;
   $accordion.find('.accordion-item').each(function() {
@@ -19,7 +20,8 @@ $.fn.accordion = function(opts) {
       open($open);
     }
   }
-  return $accordion.data('accordion', {toggle});
+  $accordion.data('accordion', controller);
+  return controller;
 
   function toggle($item) {
     $item = $item || $accordion.find('.accordion-item.open');

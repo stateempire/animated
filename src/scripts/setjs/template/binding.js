@@ -229,7 +229,7 @@ function setupWatch(watch, obj, key) {
           val = newVal;
           objChange(watch, oldVal, newVal);
           watch.acts.forEach(act => {
-            if (act.watch == watch) {
+            if (act.watch == watch && key == act.binding.v.slice(-key.length)) {
               runBinding(act.binding, act.opts);
             }
           });

@@ -8,6 +8,17 @@ $.fn.slider = function({duration, spring}) {
   var startX = 0;
   var snapDuration = duration * 0.5;
   var moved;
+  var controller = {
+    move: function(movedX) {
+      swipe({movedX, diffX: 0, speed: 1});
+    },
+    reset: function() {
+      animate(first.getBoundingClientRect().width * -index, duration);
+    },
+    next: function() {
+      snap(index == $slides.length - 1 ? 0 : index + 1);
+    },
+  };
   $slider.css('cursor', 'grab');
   $slider.swipe({
     move: function(diffX) {
@@ -54,15 +65,6 @@ $.fn.slider = function({duration, spring}) {
     });
   }
 
-  return $slider.data('slider', {
-    move: function(movedX) {
-      swipe({movedX, diffX: 0, speed: 1});
-    },
-    reset: function() {
-      first && animate(first.getBoundingClientRect().width * -index, duration);
-    },
-    next: function() {
-      snap(index == $slides.length - 1 ? 0 : index + 1);
-    },
-  });
+  $slider.data('slider', controller);
+  return controller;
 };

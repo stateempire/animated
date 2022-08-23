@@ -101,5 +101,6 @@ $.fn.carousel = function (opts) {
       clearTimeout(carousel.timerHandle);
     });
   }
-  return this.data('carousel', carousel);
+  this.data('carousel', carousel);
+  return carousel;
 };

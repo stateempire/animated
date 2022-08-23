@@ -22,6 +22,11 @@ var eventManager = {
     }
     return listener;
   },
+  addListeners: function (types, ...args) {
+    types.forEach(function(type) {
+      eventManager.addListener(type, ...args);
+    });
+  },
   removeListener: function (type, listener) {
     listener && removeFromListByValue(events[type], listener.method || listener, 'method');
   },
@@ -52,11 +57,3 @@ eventManager.addListener(eventTypes.unload, {p: 'em', priority: 5}, function() {
 
 export {eventTypes};
 export default eventManager;
-
-export function addEventListeners(types, ...args) {
-  var listeners = [];
-  types.forEach(function(type) {
-    listeners.push(eventManager.addListener(type, ...args));
-  });
-  return listeners;
-}

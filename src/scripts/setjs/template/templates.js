@@ -24,34 +24,34 @@ export function ensureTemplates({urls = [], success, error}) {
   });
 }
 
-function extractListHtml($list) {
-  var listHtml = $list.html();
-  var config = $list.data('list');
+function extractHtml($el) {
+  var elHtml = $el.html();
+  var config = $el.data('list') || $el.data('slot');
   let tName = config.t;
   if (!tName && !config.tf) {
     tName = 't_' + tId++;
-    templates[tName] = listHtml;
+    templates[tName] = elHtml;
   }
-  $list.attr('data-tname', tName).empty();
+  $el.attr('data-tname', tName).empty();
 }
 
-function processList($parent) {
-  var selector = '[data-list]';
-  var $childLists = $parent.find(selector);
+function inlineTemplates($parent) {
+  var selector = '[data-list], [data-slot]';
+  var $children = $parent.find(selector);
   var tree = [];
-  if ($childLists.length) {
-    $childLists.each(function(index, el) {
+  if ($children.length) {
+    $children.each(function(index, el) {
       var $el = $(el);
       var depth = $el.parents(selector).length;
       tree[depth] = tree[depth] || [];
       tree[depth].push($el);
     });
     tree.reverse().forEach(function(branch) {
-      branch.forEach(extractListHtml);
+      branch.forEach(extractHtml);
     });
   }
   $parent = $parent.filter(selector);
-  $parent.length && extractListHtml($parent);
+  $parent.length && extractHtml($parent);
 }
 
 export function loadTemplates(templateStr) {
@@ -60,7 +60,7 @@ export function loadTemplates(templateStr) {
     if (templates[name]) {
       fatal('Template exists', name);
     }
-    processList($item);
+    inlineTemplates($item);
     templates[name] = $item[0].outerHTML;
   });
 }

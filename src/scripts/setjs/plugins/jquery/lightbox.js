@@ -10,7 +10,7 @@ eventManager.addListener(eventTypes.route, 'lightbox', function() {
 
 $.fn.lightbox = function (opts = {}) {
   var mode = opts.mode || 'lightbox';
-  var delay = opts.delay || (mode == 'sidebar' ? 320 : 20);
+  var delay = opts.delay || (mode == 'sidebar' ? 120 : 20);
   var $lightbox = $(`<div class="${mode} ${opts.cls || ''}"></div>`).appendTo('body');
   var $btnParent = $lightbox;
   var lightbox = {opts, $lightbox, destroy, close, replaceContent};
@@ -66,7 +66,7 @@ $.fn.lightbox = function (opts = {}) {
     }
   });
 
-  $lightbox.append(this);
+  $lightbox.append(this.data('lightbox', lightbox)).data('lightbox', lightbox);
   initCarousel();
   !opts.noClose && addCloseBtn();
   $('body').addClass(openingCls);
@@ -75,12 +75,15 @@ $.fn.lightbox = function (opts = {}) {
     opts.created && opts.created(lightbox);
     viewUpdate();
   }, delay);
-  return this.data('lightbox', lightbox);
+  return lightbox;
 
   function addCloseBtn() {
     var $btn = $(`<button class="${closeCls} lightbox-close-btn"></button>`).appendTo($btnParent).add($lightbox.find('.popup-close'));
     if (!opts.noBgClose) {
       $btn = $btn.add($lightbox);
+      $('header .set-close').off('click').on('click', function() {
+        close();
+      });
     }
     $btn.click(function(e) {
       var $target = $(e.target);
