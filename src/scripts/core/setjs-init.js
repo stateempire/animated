@@ -6,7 +6,7 @@ import handleRoute from 'core/route-manager.js';
 var lastLinkClick = 0;
 
 function fixPath(pathStr) {
-  if (RegExp('account/(confirm|reset-password)/.+/').test(pathStr)) {
+  if (RegExp('account/(confirm|reset)/.+/').test(pathStr)) {
     return pathStr;
   }
   return pathStr.replace(/\/{2,}/g, '/').replace(/(.+)\/$/, '$1');

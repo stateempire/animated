@@ -107,9 +107,11 @@ function loadPage(page, route) {
           pageData.pageComp = page.comp(pageData, ...args);
           eventManager.raiseEvent(eventTypes.loading, pageData);
           loader.loadContent(pageData.pageComp.$root, function() {
-            'loaded' in page && page.loaded(pageData, ...args);
-            eventManager.raiseEvent(eventTypes.loaded, pageData);
-            viewUpdate();
+            if (pageData.id == id) {
+              'loaded' in page && page.loaded(pageData, ...args);
+              eventManager.raiseEvent(eventTypes.loaded, pageData);
+              viewUpdate();
+            }
           });
         }
       },

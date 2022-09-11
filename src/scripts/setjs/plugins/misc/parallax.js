@@ -16,7 +16,7 @@ function parallax() {
     var speed = $el.data('parallax').speed;
     timeline.add({
       targets: el,
-      translateY: `${Math.floor($win.height() * (speed || 0.4))}px`,
+      translateY: `${Math.floor($win.height() * (speed || 0.2))}px`,
       duration: 2 * $win.height(),
     }, Math.max(0, $el.offset().top - $win.height()));
   });

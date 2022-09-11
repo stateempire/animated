@@ -1,6 +1,6 @@
 var functions = {};
 var actions = {};
-var jqList = ['attr', 'css', 'data', 'html', 'prop', 'text', 'addClass', 'toggleClass', 'val'];
+var jqList = ['attr', 'css', 'data', 'html', 'prop', 'text', 'addClass', 'removeClass', 'toggleClass', 'val'];
 
 export function act(funcName) {
   if (actions[funcName]) {
@@ -39,7 +39,7 @@ export function addAction(name, onFunc) {
 
 export function addFuncs(funcs) {
   Object.keys(funcs).forEach(function(funcName) {
-    if (functions[funcName] || typeof funcs[funcName] != 'function') {
+    if (functions[funcName] || jqList.indexOf(funcName) >= 0 || typeof funcs[funcName] != 'function') {
       throw {msg: 'Duplicate or not a function', funcName, funcs};
     }
     functions[funcName] = funcs[funcName];

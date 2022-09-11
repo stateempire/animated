@@ -3,7 +3,7 @@ import getComp from 'setjs/template/component.js';
 export default function(opts) {
   let isBusy = 0;
   let exOpts = $.extend({noBtn: opts.noTxt, noClose: 1}, opts);
-  let alertComp = getComp('common/alert-box', exOpts, {
+  let alertComp = getComp(opts.compTemplate || 'common/alert-box', exOpts, {
     no: function() {
       if (isBusy) return;
       lightbox.destroy();
@@ -22,6 +22,7 @@ export default function(opts) {
   });
   let lightbox = alertComp.$root.lightbox(exOpts);
   var controller = {
+    alertComp,
     error: function(error) {
       exOpts.errorMsg = error.message || error;
       alertComp.$root.removeClass('loading');
